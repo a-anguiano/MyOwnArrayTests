@@ -6,39 +6,38 @@ namespace ArrayExercises
     {
         static void Main()
         {
-            ///// Given an array larger than 0, return the last element in the array
+            ///// Given an empty array, fill each element with the index + 1
             ///// </summary>
-            //[TestCase(new int[] { 1, 2, 3 }, 3)]
-            //[TestCase(new int[] { 1, 3, 7, 11, 5, 5 }, 5)]
-            //[TestCase(new int[] { 10 }, 10)]
-            string input = PromptUser("Give me an array of numbers larger than zero: ");
-            //string items = input.Replace(", ", "");
-            string[] Arr = input.Split(",");                //works if user enters as 1,2,3
-                                                            //may need to consider spaces and otherwise...
-                                                            //or have user enter one number at a time??
+            //[TestCase(new int[3] { 0, 0, 0 }, new int[3] { 1, 2, 3 })]
+            //[TestCase(new int[1] { 0 }, new int[1] { 1 })]
+            //[TestCase(new int[5] { 0, 0, 0, 0, 0 }, new int[5] { 1, 2, 3, 4, 5 })]
 
-            if (Arr.Length > 0)
+            //Oops!!! I did where is was an empty string array, as in { , , } null values
+            //Would've been easier with numbers anyways
+
+            int i;
+            string input = PromptUser("Give me an empty array of any length: ");
+            string items = input.Replace("{ ", "");
+            items = items.Replace("}", "");
+
+            string[] Arr = items.Split(",");
+            int[] intArr = new int[Arr.Length];
+
+            for (i = 0; i < Arr.Length; i++)
             {
-                string lastItem = Arr[Arr.Length - 1];
-                Console.Write($"The last item is {lastItem}");
+                intArr[i] = i+1;
+            }
+            foreach (var entry in intArr)
+            {
+                Console.Write(entry);
+            }
+
+            static string PromptUser(string message)
+            {
+                Console.Write(message);
+                return Console.ReadLine();
             }
         }
 
-        private static string PromptUser(string message)
-        {
-            Console.Write(message);
-            return Console.ReadLine();
-        }
-
-        private static int PromptUser4Int(string message)
-        {
-            int result;
-            while (!int.TryParse(PromptUser(message), out result))
-            {
-                PromptUser("Invalid Input! Press any key to continue");
-            }
-
-            return result;
-        }
     }
 }
